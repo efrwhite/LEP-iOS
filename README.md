@@ -9,3 +9,5 @@ This project uses Git and GitHub for version control and collaboration.
 Developer: Alex Cranford
 
 My first contribution to this project.
+
+Testing pushing from XCode
