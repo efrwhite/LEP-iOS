@@ -11,57 +11,63 @@ struct LanguageSelectView: View {
     private let languages = ["English", "Español", "한국어", "Français", "Deutsch"]
 
     var body: some View {
-        ZStack {
+        NavigationStack {
+            ZStack {
 
-            backgroundMint
-                .ignoresSafeArea()
+                backgroundMint
+                    .ignoresSafeArea()
 
-            VStack(spacing: 0) {
-                Spacer()
-                Image("logo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 160)
-                    .padding(.bottom, 24)
+                VStack(spacing: 0) {
+                    Spacer()
+                    Image("logo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 160)
+                        .padding(.bottom, 24)
 
-                Text("CHOOSE YOUR LANGUAGE")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(darkGreen)
-                    .padding(.bottom, 8)
+                    Text("CHOOSE YOUR LANGUAGE")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(darkGreen)
+                        .padding(.bottom, 8)
 
-                Text("Elige tu idioma, Choisissez votre langue\n언어를 선택하세요, Wählen Sie Ihre Sprache")
-                    .font(.footnote)
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(lightGreen)
-                    .padding(.bottom, 40)
+                    Text("Elige tu idioma, Choisissez votre langue\n언어를 선택하세요, Wählen Sie Ihre Sprache")
+                        .font(.footnote)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(lightGreen)
+                        .padding(.bottom, 40)
 
-                VStack(spacing: 16) {
-                    ForEach(languages, id: \.self) { language in
-                        let isSelected = selectedLanguage == language
+                    VStack(spacing: 16) {
+                        ForEach(languages, id: \.self) { language in
+                            let isSelected = selectedLanguage == language
 
-                        Button {
-                            selectedLanguage = language
-                        } label: {
-                            Text(language)
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
-                                .foregroundStyle(.white)
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 56)
-                                .background(isSelected ? darkGreen : mutedGreen)
-                                .clipShape(Capsule())
-                                .overlay(
-                                    Capsule()
-                                        .stroke(lightGreen, lineWidth: isSelected ? 0 : 2)
-                                )
+                            NavigationLink {
+                                WelcomeView()
+                            } label: {
+                                Text(language)
+                                    .font(.subheadline)
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 56)
+                                    .background(isSelected ? darkGreen : mutedGreen)
+                                    .clipShape(Capsule())
+                                    .overlay(
+                                        Capsule()
+                                            .stroke(lightGreen, lineWidth: isSelected ? 0 : 2)
+                                    )
+                            }
+                         
+                            .simultaneousGesture(TapGesture().onEnded {
+                                selectedLanguage = language
+                            })
                         }
                     }
-                }
-                .padding(.horizontal, 40)
+                    .padding(.horizontal, 40)
 
-                Spacer()
-                Spacer()
+                    Spacer()
+                    Spacer()
+                }
             }
         }
     }

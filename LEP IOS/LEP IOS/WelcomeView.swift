@@ -23,10 +23,11 @@ struct WelcomeView: View {
                 Spacer()
 
                 HStack(spacing: 16) {
-                   
-                    Button {
-                      
-                        
+
+              
+                    NavigationLink {
+                        MainTabView()
+                            .navigationBarBackButtonHidden(true)
                     } label: {
                         Text("Register")
                             .font(.subheadline)
@@ -40,9 +41,10 @@ struct WelcomeView: View {
                             )
                     }
 
-            
-                    Button {
-         
+     
+                    NavigationLink {
+                        MainTabView()
+                            .navigationBarBackButtonHidden(true)
                     } label: {
                         Text("Login")
                             .font(.subheadline)
@@ -62,5 +64,7 @@ struct WelcomeView: View {
 }
 
 #Preview {
-    WelcomeView()
+    NavigationStack {
+        WelcomeView()
+    }
 }
