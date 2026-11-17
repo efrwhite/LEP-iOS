@@ -86,7 +86,34 @@ struct FilterView: View {
                     }
                 }
                 
-                
+                Text("Today 7:30 AM")
+                    .font(.title2)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity)
+                    .padding(.top, 30)
+                Rectangle()
+                    .fill(gray)
+                    .frame(height: 250)
+                    .overlay(
+                        Image(systemName: "photo")
+                            .font(.system(size: 50))
+                            .foregroundStyle(Color.black)
+                    )
+                Spacer()
+
+                Button {
+                   
+                } label: {
+                    Text("Confirm")
+                        .font(.title2)
+                        .foregroundStyle(Color.white)
+                        .padding(.vertical, 14)
+                        .padding(.horizontal, 40)
+                        .background(red)
+                        .clipShape(Capsule())
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.bottom, 60)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding(.horizontal, 24)

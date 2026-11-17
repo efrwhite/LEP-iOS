@@ -14,7 +14,7 @@ struct MainTabView: View {
                     Label("Home", systemImage: "house")
                 }
 
-            Text("History coming soon")
+            FilterView()
                 .tabItem {
                     Label("History", systemImage: "folder")
                 }
