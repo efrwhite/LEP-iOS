@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FilterView: View {
     @State private var selectedMeal = "Breakfast"
-    
+    @State private var selectedRange = "Past 7 Days"
     var body: some View {
         ZStack {
             backgroundMint.ignoresSafeArea()
@@ -63,6 +63,29 @@ struct FilterView: View {
                         }
                     }
                 }
+                
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Date Range")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                    Menu {
+                        Button("Today") { selectedRange = "Today" }
+                        Button("Past 7 Days") { selectedRange = "Past 7 Days" }
+                        Button("Past 30 Days") { selectedRange = "Past 30 Days" }
+                    } label: {
+                        HStack(spacing: 16) {
+                            Image(systemName: "calendar")
+                            Text(selectedRange)
+                            Spacer()
+                        }
+                        .foregroundStyle(Color.black)
+                        .padding()
+                        .background(offWhite)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .overlay(RoundedRectangle(cornerRadius: 12).stroke(primaryGreen, lineWidth: 1))
+                    }
+                }
+                
                 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
