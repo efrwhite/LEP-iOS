@@ -13,18 +13,19 @@ struct FilterView: View {
     var body: some View {
         ZStack {
             backgroundMint.ignoresSafeArea()
-            
-            VStack(alignment: .leading, spacing: 20) {
+
+            VStack(alignment: .leading, spacing: 14) {
                 Text("Filter meals")
                     .font(.title)
                     .bold()
-                    .padding(.bottom, 20)
-                
+                    .foregroundStyle(Color.black)
+                    .padding(.bottom, 16)
+
                 VStack(alignment: .leading, spacing: 10) {
                     Text("MEAL TYPE")
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                    
+                        .foregroundStyle(Color.gray)
+
                     HStack(spacing: 24) {
                         Button {
                             selectedMeal = "Breakfast"
@@ -37,7 +38,7 @@ struct FilterView: View {
                                 .clipShape(Capsule())
                                 .overlay(Capsule().stroke(primaryGreen, lineWidth: 1))
                         }
-                        
+
                         Button {
                             selectedMeal = "Lunch"
                         } label: {
@@ -49,7 +50,7 @@ struct FilterView: View {
                                 .clipShape(Capsule())
                                 .overlay(Capsule().stroke(primaryGreen, lineWidth: 1))
                         }
-                        
+
                         Button {
                             selectedMeal = "Dinner"
                         } label: {
@@ -63,62 +64,68 @@ struct FilterView: View {
                         }
                     }
                 }
-                
+
                 VStack(alignment: .leading, spacing: 10) {
                     Text("Date Range")
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.gray)
                     Menu {
                         Button("Today") { selectedRange = "Today" }
                         Button("Past 7 Days") { selectedRange = "Past 7 Days" }
                         Button("Past 30 Days") { selectedRange = "Past 30 Days" }
                     } label: {
-                        HStack(spacing: 16) {
+                        HStack(spacing: 24) {
                             Image(systemName: "calendar")
                             Text(selectedRange)
                             Spacer()
                         }
                         .foregroundStyle(Color.black)
-                        .padding()
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 24)
                         .background(offWhite)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                         .overlay(RoundedRectangle(cornerRadius: 12).stroke(primaryGreen, lineWidth: 1))
                     }
+                    .padding(.horizontal, 6)
                 }
-                
-                Text("Today 7:30 AM")
+
+                Text("Today 7:40 AM")
                     .font(.title2)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.gray)
                     .frame(maxWidth: .infinity)
                     .padding(.top, 30)
+
                 Rectangle()
                     .fill(gray)
-                    .frame(height: 250)
+                    .frame(height: 260)
                     .overlay(
                         Image(systemName: "photo")
                             .font(.system(size: 50))
                             .foregroundStyle(Color.black)
                     )
+                    .padding(.horizontal, 6)
+
                 Spacer()
 
                 Button {
-                   
+
                 } label: {
                     Text("Confirm")
                         .font(.title2)
                         .foregroundStyle(Color.white)
                         .padding(.vertical, 14)
-                        .padding(.horizontal, 40)
+                        .padding(.horizontal, 44)
                         .background(red)
-                        .clipShape(Capsule())
+                        .clipShape(RoundedRectangle(cornerRadius: 24))
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.bottom, 60)
+                .padding(.bottom, 20)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding(.horizontal, 24)
-            .padding(.top, 60)
+            .padding(.top, 30)
         }
+        .preferredColorScheme(.light)
     }
 }
 
