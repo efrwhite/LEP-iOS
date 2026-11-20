@@ -115,7 +115,7 @@ struct FilterView: View {
                         .foregroundStyle(Color.white)
                         .padding(.vertical, 14)
                         .padding(.horizontal, 44)
-                        .background(red)
+                        .background(brandOrange)
                         .clipShape(RoundedRectangle(cornerRadius: 24))
                 }
                 .frame(maxWidth: .infinity)

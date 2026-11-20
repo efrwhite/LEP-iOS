@@ -18,3 +18,4 @@ let gray           = Color(red: 179/255, green: 179/255, blue: 179/255)  // B3B3
 let orange         = Color(red: 233/255, green: 162/255, blue: 59/255)   // ~E9A23B
 let darkOrange     = Color(red: 200/255, green: 133/255, blue: 31/255)   // ~C8851F
 let red            = Color(red: 192/255, green: 68/255,  blue: 58/255)   // ~C0443A
+let brandOrange    = Color(red: 216/255, green: 90/255,  blue: 48/255)   // D85A30

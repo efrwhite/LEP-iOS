@@ -18,7 +18,7 @@ struct MainTabView: View {
                     Label("History", systemImage: "folder")
                 }
 
-            Text("Profile coming soon")
+            ProfileView()
                 .tabItem {
                     Label("Profile", systemImage: "person.crop.square")
                 }
