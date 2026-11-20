@@ -6,6 +6,9 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    @State private var navigateToLogin = false
+    @State private var navigateToRegister = false
+    
     var body: some View {
         ZStack {
             backgroundMint
@@ -23,11 +26,8 @@ struct WelcomeView: View {
                 Spacer()
 
                 HStack(spacing: 16) {
-
-              
-                    NavigationLink {
-                        MainTabView()
-                            .navigationBarBackButtonHidden(true)
+                    Button {
+                        navigateToRegister = true
                     } label: {
                         Text("Register")
                             .font(.subheadline)
@@ -41,10 +41,8 @@ struct WelcomeView: View {
                             )
                     }
 
-     
-                    NavigationLink {
-                        MainTabView()
-                            .navigationBarBackButtonHidden(true)
+                    Button {
+                        navigateToLogin = true
                     } label: {
                         Text("Login")
                             .font(.subheadline)
@@ -59,6 +57,14 @@ struct WelcomeView: View {
                 .padding(.horizontal, 32)
                 .padding(.bottom, 60)
             }
+        }
+        .navigationDestination(isPresented: $navigateToLogin) {
+            LoginRootView()
+                .navigationBarBackButtonHidden(true)
+        }
+        .navigationDestination(isPresented: $navigateToRegister) {
+            RegisterRootView()
+                .navigationBarBackButtonHidden(true)
         }
     }
 }

@@ -5,7 +5,6 @@
 
 import SwiftUI
 
-
 struct MainTabView: View {
     var body: some View {
         TabView {
@@ -24,7 +23,7 @@ struct MainTabView: View {
                     Label("Profile", systemImage: "person.crop.square")
                 }
         }
-        .tint(Color(red: 15/255, green: 110/255, blue: 86/255))
+        .tint(primaryGreen)
     }
 }
 

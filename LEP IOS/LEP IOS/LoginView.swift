@@ -1,16 +1,5 @@
 import SwiftUI
 
-// MARK: - 1. THEME & COLORS
-extension Color {
-    static let brandBg = Color(red: 234/255, green: 243/255, blue: 236/255)         // #EAF3EC
-    static let brandGreen = Color(red: 27/255, green: 77/255, blue: 54/255)          // #1B4D36
-    static let brandBorder = Color(red: 42/255, green: 87/255, blue: 68/255)        // #2A5744
-    static let brandText = Color(red: 28/255, green: 46/255, blue: 36/255)          // #1C2E24
-    static let brandMuted = Color(red: 101/255, green: 122/255, blue: 112/255)      // #657A70
-    static let brandLink = Color(red: 59/255, green: 130/255, blue: 246/255)        // #3B82F6
-}
-
-// MARK: - 2. REUSABLE INPUT FIELD
 struct InputField: View {
     let label: String
     let placeholder: String
@@ -26,17 +15,17 @@ struct InputField: View {
         VStack(alignment: .leading, spacing: 6) {
             Text(label)
                 .font(.system(size: 12, weight: .semibold))
-                .foregroundColor(.brandText)
+                .foregroundColor(.black)
 
             HStack {
                 if isSecure && !isPasswordVisible {
                     SecureField(placeholder, text: $text)
                         .font(.system(size: 14))
-                        .foregroundColor(.brandText)
+                        .foregroundColor(.black)
                 } else {
                     TextField(placeholder, text: $text)
                         .font(.system(size: 14))
-                        .foregroundColor(.brandText)
+                        .foregroundColor(.black)
                         .keyboardType(keyboardType)
                         .textInputAutocapitalization(autocapitalization)
                         .autocorrectionDisabled()
@@ -59,14 +48,13 @@ struct InputField: View {
             if let helper = helperText {
                 Text(helper)
                     .font(.system(size: 11))
-                    .foregroundColor(Color.gray)
+                    .foregroundColor(.black)
                     .padding(.leading, 2)
             }
         }
     }
 }
 
-// MARK: - 3. SOCIAL BUTTON
 enum SocialProvider {
     case apple, google, facebook
 
@@ -91,14 +79,14 @@ struct SocialButton: View {
 
                 Text(provider.title)
                     .font(.system(size: 13, weight: .medium))
-                    .foregroundColor(.brandText)
+                    .foregroundColor(.black)
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 12)
-            .background(Color.brandBg)
+            .background(backgroundMint)
             .overlay(
                 RoundedRectangle(cornerRadius: 24)
-                    .stroke(Color.brandBorder, lineWidth: 1)
+                    .stroke(primaryGreen, lineWidth: 1)
             )
             .cornerRadius(24)
         }
@@ -125,7 +113,6 @@ struct SocialButton: View {
     }
 }
 
-// MARK: - 4. LOGIN VIEW
 struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
@@ -135,15 +122,14 @@ struct LoginView: View {
 
     var body: some View {
         ZStack {
-            Color.brandBg.ignoresSafeArea()
+            backgroundMint.ignoresSafeArea()
 
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    // Header Bar (lep logo & Register link)
                     HStack {
                         Text("lep")
                             .font(.system(size: 15))
-                            .foregroundColor(.brandMuted)
+                            .foregroundColor(.black)
 
                         Spacer()
 
@@ -155,20 +141,18 @@ struct LoginView: View {
                                     Image(systemName: "arrow.right")
                                         .font(.system(size: 11, weight: .semibold))
                                 }
-                                .foregroundColor(.brandGreen)
+                                .foregroundColor(primaryGreen)
                             }
                         }
                     }
                     .padding(.top, 8)
                     .padding(.bottom, 36)
 
-                    // Title
                     Text("Login")
                         .font(.system(size: 26, weight: .bold))
-                        .foregroundColor(.brandText)
+                        .foregroundColor(.black)
                         .padding(.bottom, 32)
 
-                    // Form Fields
                     VStack(spacing: 16) {
                         InputField(
                             label: "E-mail",
@@ -188,7 +172,7 @@ struct LoginView: View {
                             Button(action: {}) {
                                 Text("Forgot Password?")
                                     .font(.system(size: 12))
-                                    .foregroundColor(.brandLink)
+                                    .foregroundColor(.blue)
                             }
                         }
 
@@ -198,24 +182,22 @@ struct LoginView: View {
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 14)
-                                .background(Color.brandGreen)
+                                .background(primaryGreen)
                                 .cornerRadius(30)
-                                .shadow(color: Color.brandGreen.opacity(0.3), radius: 6, x: 0, y: 3)
+                                .shadow(color: primaryGreen.opacity(0.3), radius: 6, x: 0, y: 3)
                         }
                         .padding(.top, 8)
                     }
 
-                    // Divider: —— Or ——
                     HStack(spacing: 14) {
-                        Rectangle().fill(Color.brandMuted.opacity(0.3)).frame(height: 1)
+                        Rectangle().fill(Color.black.opacity(0.3)).frame(height: 1)
                         Text("Or")
                             .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(.brandMuted)
-                        Rectangle().fill(Color.brandMuted.opacity(0.3)).frame(height: 1)
+                            .foregroundColor(.black)
+                        Rectangle().fill(Color.black.opacity(0.3)).frame(height: 1)
                     }
                     .padding(.vertical, 28)
 
-                    // Social Buttons
                     VStack(spacing: 12) {
                         SocialButton(provider: .apple) {}
                         SocialButton(provider: .google) {}
@@ -230,7 +212,6 @@ struct LoginView: View {
     }
 }
 
-// MARK: - 5. REGISTER VIEW
 struct RegisterView: View {
     @State private var firstName: String = ""
     @State private var lastName: String = ""
@@ -243,15 +224,14 @@ struct RegisterView: View {
 
     var body: some View {
         ZStack {
-            Color.brandBg.ignoresSafeArea()
+            backgroundMint.ignoresSafeArea()
 
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    // Header Bar (lep logo & Login link)
                     HStack {
                         Text("lep")
                             .font(.system(size: 15))
-                            .foregroundColor(.brandMuted)
+                            .foregroundColor(mutedGreen)
 
                         Spacer()
 
@@ -263,20 +243,18 @@ struct RegisterView: View {
                                     Text("Login")
                                         .font(.system(size: 13, weight: .semibold))
                                 }
-                                .foregroundColor(.brandGreen)
+                                .foregroundColor(primaryGreen)
                             }
                         }
                     }
                     .padding(.top, 8)
                     .padding(.bottom, 28)
 
-                    // Title
                     Text("Register")
                         .font(.system(size: 26, weight: .bold))
-                        .foregroundColor(.brandText)
+                        .foregroundColor(darkGreen)
                         .padding(.bottom, 26)
 
-                    // Form
                     VStack(spacing: 14) {
                         HStack(spacing: 12) {
                             InputField(
@@ -322,18 +300,17 @@ struct RegisterView: View {
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 14)
-                                .background(Color.brandGreen)
+                                .background(primaryGreen)
                                 .cornerRadius(30)
-                                .shadow(color: Color.brandGreen.opacity(0.3), radius: 6, x: 0, y: 3)
+                                .shadow(color: primaryGreen.opacity(0.3), radius: 6, x: 0, y: 3)
                         }
                         .padding(.top, 10)
                     }
 
-                    // Terms Notice
                     Text("By continuing, you agree to our [Terms of Service](https://example.com/terms) and [Privacy Policy](https://example.com/privacy).")
                         .font(.system(size: 11))
-                        .tint(.brandLink)
-                        .foregroundColor(Color.gray)
+                        .tint(.blue)
+                        .foregroundColor(mutedGreen)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 24)
                         .padding(.top, 24)
@@ -346,9 +323,9 @@ struct RegisterView: View {
     }
 }
 
-// MARK: - 6. MAIN CONTENT VIEW (SCREEN SWITCHER)
 struct LoginRootView: View {
     @State private var isRegistering: Bool = false
+    @State private var navigateToMainTab: Bool = false
 
     var body: some View {
         Group {
@@ -360,7 +337,7 @@ struct LoginRootView: View {
                         }
                     },
                     onRegisterSuccess: {
-                        print("Registered successfully!")
+                        navigateToMainTab = true
                     }
                 )
             } else {
@@ -371,10 +348,38 @@ struct LoginRootView: View {
                         }
                     },
                     onLoginSuccess: {
-                        print("Logged in successfully!")
+                        navigateToMainTab = true
                     }
                 )
             }
+        }
+        .navigationDestination(isPresented: $navigateToMainTab) {
+            MainTabView()
+                .navigationBarBackButtonHidden(true)
+        }
+    }
+}
+
+struct RegisterRootView: View {
+    @State private var isLogin: Bool = false
+    @State private var navigateToMainTab: Bool = false
+
+    var body: some View {
+        RegisterView(
+            onNavigateToLogin: {
+                isLogin = true
+            },
+            onRegisterSuccess: {
+                navigateToMainTab = true
+            }
+        )
+        .navigationDestination(isPresented: $navigateToMainTab) {
+            MainTabView()
+                .navigationBarBackButtonHidden(true)
+        }
+        .navigationDestination(isPresented: $isLogin) {
+            LoginRootView()
+                .navigationBarBackButtonHidden(true)
         }
     }
 }
