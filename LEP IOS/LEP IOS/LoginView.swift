@@ -12,19 +12,19 @@ struct InputField: View {
     @State private var isPasswordVisible: Bool = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 8) {
             Text(label)
-                .font(.system(size: 12, weight: .semibold))
-                .foregroundColor(.black)
+                .font(.system(size: 14, weight: .medium))
+                .foregroundColor(Color(white: 0.3))
 
             HStack {
                 if isSecure && !isPasswordVisible {
                     SecureField(placeholder, text: $text)
-                        .font(.system(size: 14))
+                        .font(.system(size: 15))
                         .foregroundColor(.black)
                 } else {
                     TextField(placeholder, text: $text)
-                        .font(.system(size: 14))
+                        .font(.system(size: 15))
                         .foregroundColor(.black)
                         .keyboardType(keyboardType)
                         .textInputAutocapitalization(autocapitalization)
@@ -33,22 +33,21 @@ struct InputField: View {
 
                 if isSecure {
                     Button(action: { isPasswordVisible.toggle() }) {
-                        Image(systemName: isPasswordVisible ? "eye" : "eye.slash")
-                            .font(.system(size: 15))
-                            .foregroundColor(Color(white: 0.6))
+                        Image(systemName: isPasswordVisible ? "eye.slash" : "eye.slash")
+                            .font(.system(size: 18))
+                            .foregroundColor(Color(white: 0.5))
                     }
                 }
             }
-            .padding(.horizontal, 14)
-            .padding(.vertical, 13)
-            .background(Color.white)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 16)
+            .background(Color.white.opacity(0.7))
             .cornerRadius(12)
-            .shadow(color: Color.black.opacity(0.04), radius: 2, x: 0, y: 1)
 
             if let helper = helperText {
                 Text(helper)
-                    .font(.system(size: 11))
-                    .foregroundColor(.black)
+                    .font(.system(size: 12))
+                    .foregroundColor(Color(white: 0.5))
                     .padding(.leading, 2)
             }
         }
@@ -75,20 +74,20 @@ struct SocialButton: View {
         Button(action: action) {
             HStack(spacing: 12) {
                 providerIcon
-                    .frame(width: 18, height: 18)
+                    .frame(width: 20, height: 20)
 
                 Text(provider.title)
-                    .font(.system(size: 13, weight: .medium))
+                    .font(.system(size: 15, weight: .medium))
                     .foregroundColor(.black)
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 12)
-            .background(backgroundMint)
+            .padding(.vertical, 14)
+            .background(Color.white.opacity(0.7))
             .overlay(
-                RoundedRectangle(cornerRadius: 24)
-                    .stroke(primaryGreen, lineWidth: 1)
+                RoundedRectangle(cornerRadius: 25)
+                    .stroke(Color(white: 0.7), lineWidth: 1.5)
             )
-            .cornerRadius(24)
+            .cornerRadius(25)
         }
     }
 
@@ -102,7 +101,7 @@ struct SocialButton: View {
                 .foregroundColor(.black)
         case .google:
             Text("G")
-                .font(.system(size: 14, weight: .bold))
+                .font(.system(size: 16, weight: .bold))
                 .foregroundColor(Color(red: 66/255, green: 133/255, blue: 244/255))
         case .facebook:
             Image(systemName: "f.circle.fill")
@@ -121,92 +120,75 @@ struct LoginView: View {
     var onLoginSuccess: (() -> Void)? = nil
 
     var body: some View {
-        ZStack {
-            backgroundMint.ignoresSafeArea()
+        GeometryReader { geometry in
+            ZStack {
+                backgroundMint.ignoresSafeArea()
 
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 0) {
-                    HStack {
-                        Text("lep")
-                            .font(.system(size: 15))
-                            .foregroundColor(.black)
-
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 0) {
                         Spacer()
+                            .frame(height: max(40, (geometry.size.height - 650) / 2))
+                        
+                        Text("Login")
+                            .font(.system(size: 32, weight: .bold))
+                            .foregroundColor(Color(white: 0.2))
+                            .padding(.bottom, 40)
 
-                        if let onNavigateToRegister = onNavigateToRegister {
-                            Button(action: onNavigateToRegister) {
-                                HStack(spacing: 4) {
-                                    Text("Register")
-                                        .font(.system(size: 13, weight: .semibold))
-                                    Image(systemName: "arrow.right")
-                                        .font(.system(size: 11, weight: .semibold))
-                                }
-                                .foregroundColor(primaryGreen)
-                            }
-                        }
-                    }
-                    .padding(.top, 8)
-                    .padding(.bottom, 36)
-
-                    Text("Login")
-                        .font(.system(size: 26, weight: .bold))
-                        .foregroundColor(.black)
-                        .padding(.bottom, 32)
-
-                    VStack(spacing: 16) {
-                        InputField(
-                            label: "E-mail",
-                            placeholder: "Enter your email",
-                            text: $email,
-                            keyboardType: .emailAddress
-                        )
-
-                        VStack(alignment: .trailing, spacing: 6) {
+                        VStack(spacing: 20) {
                             InputField(
-                                label: "Password",
-                                placeholder: "Enter your password",
-                                text: $password,
-                                isSecure: true
+                                label: "E-mail",
+                                placeholder: "Enter your email",
+                                text: $email,
+                                keyboardType: .emailAddress
                             )
 
-                            Button(action: {}) {
-                                Text("Forgot Password?")
-                                    .font(.system(size: 12))
-                                    .foregroundColor(.blue)
+                            VStack(alignment: .trailing, spacing: 8) {
+                                InputField(
+                                    label: "Password",
+                                    placeholder: "Enter your password",
+                                    text: $password,
+                                    isSecure: true
+                                )
+
+                                Button(action: {}) {
+                                    Text("Forgot Password?")
+                                        .font(.system(size: 13))
+                                        .foregroundColor(.blue)
+                                }
                             }
+
+                            Button(action: { onLoginSuccess?() }) {
+                                Text("Login")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 16)
+                                    .background(primaryGreen)
+                                    .cornerRadius(25)
+                            }
+                            .padding(.top, 12)
                         }
 
-                        Button(action: { onLoginSuccess?() }) {
-                            Text("Login")
-                                .font(.system(size: 15, weight: .semibold))
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 14)
-                                .background(primaryGreen)
-                                .cornerRadius(30)
-                                .shadow(color: primaryGreen.opacity(0.3), radius: 6, x: 0, y: 3)
+                        HStack(spacing: 16) {
+                            Rectangle().fill(Color.black.opacity(0.25)).frame(height: 1)
+                            Text("Or")
+                                .font(.system(size: 13, weight: .medium))
+                                .foregroundColor(Color(white: 0.4))
+                            Rectangle().fill(Color.black.opacity(0.25)).frame(height: 1)
                         }
-                        .padding(.top, 8)
-                    }
+                        .padding(.vertical, 32)
 
-                    HStack(spacing: 14) {
-                        Rectangle().fill(Color.black.opacity(0.3)).frame(height: 1)
-                        Text("Or")
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(.black)
-                        Rectangle().fill(Color.black.opacity(0.3)).frame(height: 1)
-                    }
-                    .padding(.vertical, 28)
+                        VStack(spacing: 14) {
+                            SocialButton(provider: .apple) {}
+                            SocialButton(provider: .google) {}
+                            SocialButton(provider: .facebook) {}
+                        }
 
-                    VStack(spacing: 12) {
-                        SocialButton(provider: .apple) {}
-                        SocialButton(provider: .google) {}
-                        SocialButton(provider: .facebook) {}
+                        Spacer()
+                            .frame(height: 60)
                     }
-
-                    Spacer(minLength: 40)
+                    .padding(.horizontal, 32)
                 }
-                .padding(.horizontal, 24)
             }
         }
     }
@@ -223,138 +205,108 @@ struct RegisterView: View {
     var onRegisterSuccess: (() -> Void)? = nil
 
     var body: some View {
-        ZStack {
-            backgroundMint.ignoresSafeArea()
+        GeometryReader { geometry in
+            ZStack {
+                backgroundMint.ignoresSafeArea()
 
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 0) {
-                    HStack {
-                        Text("lep")
-                            .font(.system(size: 15))
-                            .foregroundColor(mutedGreen)
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        Spacer()
+                            .frame(height: max(40, (geometry.size.height - 700) / 2))
+                        
+                        Text("Register")
+                            .font(.system(size: 32, weight: .bold))
+                            .foregroundColor(Color(white: 0.2))
+                            .padding(.bottom, 40)
+
+                        VStack(spacing: 18) {
+                            HStack(spacing: 14) {
+                                InputField(
+                                    label: "First Name",
+                                    placeholder: "John",
+                                    text: $firstName,
+                                    autocapitalization: .words
+                                )
+
+                                InputField(
+                                    label: "Last Name",
+                                    placeholder: "Doe",
+                                    text: $lastName,
+                                    autocapitalization: .words
+                                )
+                            }
+
+                            InputField(
+                                label: "E-mail",
+                                placeholder: "Enter your email",
+                                text: $email,
+                                keyboardType: .emailAddress
+                            )
+
+                            InputField(
+                                label: "Password",
+                                placeholder: "*********",
+                                text: $password,
+                                isSecure: true,
+                                helperText: "must contain 8 char."
+                            )
+
+                            InputField(
+                                label: "Confirm Password",
+                                placeholder: "*********",
+                                text: $confirmPassword,
+                                isSecure: true
+                            )
+
+                            Button(action: { onRegisterSuccess?() }) {
+                                Text("Create Account")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 16)
+                                    .background(primaryGreen)
+                                    .cornerRadius(25)
+                            }
+                            .padding(.top, 12)
+                        }
+
+                        Text("By continuing, you agree to our [Terms of Service](https://example.com/terms) and [Privacy Policy](https://example.com/privacy).")
+                            .font(.system(size: 12))
+                            .tint(.blue)
+                            .foregroundColor(Color(white: 0.5))
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 20)
+                            .padding(.top, 32)
 
                         Spacer()
-
-                        if let onNavigateToLogin = onNavigateToLogin {
-                            Button(action: onNavigateToLogin) {
-                                HStack(spacing: 4) {
-                                    Image(systemName: "arrow.left")
-                                        .font(.system(size: 11, weight: .semibold))
-                                    Text("Login")
-                                        .font(.system(size: 13, weight: .semibold))
-                                }
-                                .foregroundColor(primaryGreen)
-                            }
-                        }
+                            .frame(height: 60)
                     }
-                    .padding(.top, 8)
-                    .padding(.bottom, 28)
-
-                    Text("Register")
-                        .font(.system(size: 26, weight: .bold))
-                        .foregroundColor(darkGreen)
-                        .padding(.bottom, 26)
-
-                    VStack(spacing: 14) {
-                        HStack(spacing: 12) {
-                            InputField(
-                                label: "First Name",
-                                placeholder: "John",
-                                text: $firstName,
-                                autocapitalization: .words
-                            )
-
-                            InputField(
-                                label: "Last Name",
-                                placeholder: "Doe",
-                                text: $lastName,
-                                autocapitalization: .words
-                            )
-                        }
-
-                        InputField(
-                            label: "E-mail",
-                            placeholder: "Enter your email",
-                            text: $email,
-                            keyboardType: .emailAddress
-                        )
-
-                        InputField(
-                            label: "Password",
-                            placeholder: "*********",
-                            text: $password,
-                            isSecure: true,
-                            helperText: "must contain 8 char."
-                        )
-
-                        InputField(
-                            label: "Confirm Password",
-                            placeholder: "*********",
-                            text: $confirmPassword,
-                            isSecure: true
-                        )
-
-                        Button(action: { onRegisterSuccess?() }) {
-                            Text("Create Account")
-                                .font(.system(size: 15, weight: .semibold))
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 14)
-                                .background(primaryGreen)
-                                .cornerRadius(30)
-                                .shadow(color: primaryGreen.opacity(0.3), radius: 6, x: 0, y: 3)
-                        }
-                        .padding(.top, 10)
-                    }
-
-                    Text("By continuing, you agree to our [Terms of Service](https://example.com/terms) and [Privacy Policy](https://example.com/privacy).")
-                        .font(.system(size: 11))
-                        .tint(.blue)
-                        .foregroundColor(mutedGreen)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 24)
-                        .padding(.top, 24)
-
-                    Spacer(minLength: 40)
+                    .padding(.horizontal, 32)
                 }
-                .padding(.horizontal, 24)
             }
         }
     }
 }
 
 struct LoginRootView: View {
-    @State private var isRegistering: Bool = false
+    @State private var navigateToRegister: Bool = false
     @State private var navigateToMainTab: Bool = false
 
     var body: some View {
-        Group {
-            if isRegistering {
-                RegisterView(
-                    onNavigateToLogin: {
-                        withAnimation(.easeInOut(duration: 0.25)) {
-                            isRegistering = false
-                        }
-                    },
-                    onRegisterSuccess: {
-                        navigateToMainTab = true
-                    }
-                )
-            } else {
-                LoginView(
-                    onNavigateToRegister: {
-                        withAnimation(.easeInOut(duration: 0.25)) {
-                            isRegistering = true
-                        }
-                    },
-                    onLoginSuccess: {
-                        navigateToMainTab = true
-                    }
-                )
+        LoginView(
+            onNavigateToRegister: {
+                navigateToRegister = true
+            },
+            onLoginSuccess: {
+                navigateToMainTab = true
             }
-        }
+        )
         .navigationDestination(isPresented: $navigateToMainTab) {
             MainTabView()
+                .navigationBarBackButtonHidden(true)
+        }
+        .navigationDestination(isPresented: $navigateToRegister) {
+            RegisterRootView()
                 .navigationBarBackButtonHidden(true)
         }
     }
