@@ -37,10 +37,10 @@ struct ProfileView: View {
         HStack(spacing: 20) {
             Circle()
                 .stroke(primaryGreen, lineWidth: 3)
-                .frame(width: 80, height: 80)
+                .frame(width: 90, height: 90)
                 .overlay(
                     Image(systemName: "person.fill")
-                        .font(.system(size: 36))
+                        .font(.system(size: 40))
                         .foregroundColor(primaryGreen)
                 )
                 .background(Circle().fill(offWhite))
@@ -87,6 +87,8 @@ struct ProfileView: View {
                     Text("Share log with the Clinic")
                         .font(.system(size: 22, weight: .semibold))
                         .foregroundColor(.black)
+                        .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     
                     Text("Send photo to the doctor")
                         .font(.system(size: 16))
