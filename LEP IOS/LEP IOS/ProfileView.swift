@@ -37,18 +37,19 @@ struct ProfileView: View {
         HStack(spacing: 20) {
             Circle()
                 .stroke(primaryGreen, lineWidth: 3)
-                .frame(width: 120, height: 120)
+                .frame(width: 80, height: 80)
                 .overlay(
                     Image(systemName: "person.fill")
-                        .font(.system(size: 50))
+                        .font(.system(size: 36))
                         .foregroundColor(primaryGreen)
                 )
                 .background(Circle().fill(offWhite))
             
             VStack(alignment: .leading, spacing: 8) {
                 Text("Anush Pradhan")
-                    .font(.system(size: 28, weight: .bold))
+                    .font(.system(size: 24, weight: .bold))
                     .foregroundColor(.black)
+                    .lineLimit(1)
                 
                 Text("VCU School of Business")
                     .font(.system(size: 16))
@@ -56,10 +57,10 @@ struct ProfileView: View {
                 
                 Button(action: {}) {
                     Text("Edit Profile")
-                        .font(.system(size: 16, weight: .semibold))
+                        .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.white)
-                        .padding(.horizontal, 24)
-                        .padding(.vertical, 10)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 8)
                         .background(brandOrange)
                         .cornerRadius(6)
                 }
