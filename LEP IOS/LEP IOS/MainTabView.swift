@@ -13,6 +13,16 @@ struct MainTabView: View {
                     Label("Home", systemImage: "house")
                 }
 
+            MedicationScannerView()
+                .tabItem {
+                    Label("Medication", systemImage: "pills")
+                }
+
+            BloodSugarLogView()
+                .tabItem {
+                    Label("Blood Sugar", systemImage: "drop")
+                }
+
             FilterView()
                 .tabItem {
                     Label("History", systemImage: "folder")
